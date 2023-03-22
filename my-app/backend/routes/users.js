@@ -13,9 +13,9 @@ router.route('/').get( (req,res)=>{
 
 router.route('/add').post((req,res) => {
     const username = req.body.username;
-    const newUser = new Users({username})
+    const newUser = new Users({username});
     newUser.save()
-    .then(()=>res.json('User added succesfully'))
+    .then(()=>res.json('User added succesfully'+req))
     .catch(err => {
         res.json(`Error in post request : ${err}`);
     })

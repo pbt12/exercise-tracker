@@ -8,8 +8,8 @@ import axios from 'axios'
 function AddExercise() {
   let rendercount =0;
   rendercount++;
-  let user = {};
   console.log(rendercount);
+  const [user,setUser] = useState({});
   const [exercise,setExercise] = useState('');
   const [username,setUsername] = useState('');
   const [duration,setDuration]=useState('');
@@ -43,13 +43,14 @@ function AddExercise() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-     user = {
+    const currUser = {username,exercise,duration,date};
+     setUser({
       username,
       exercise,
       duration,
       date
-    }
-    axios.post('http://localhost:5000/exercises/add',{user})
+    });
+    axios.post('http://localhost:5000/exercises/add',currUser)
     .then(() => console.log('User added successfully'))
     .catch((err)=>console.log(err));
   }
@@ -58,7 +59,6 @@ function AddExercise() {
     <div className='container'>
         <form onSubmit={onSubmit}>
           <h4>username </h4>
-          <label htmlFor="exampleDataList" className="form-label">Datalist example</label>
           <input className="form-control" list="list" id="exampleDataList" placeholder="Type to search..." value={username} onChange={(e)=>{console.log('username state');setUsername(e.target.value)}}/>
           <datalist id="list">
             {

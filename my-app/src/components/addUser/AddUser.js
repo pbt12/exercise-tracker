@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
+import axios from 'axios';
 function AddUser() {
 
   const [user,setUser] = useState("");
@@ -7,9 +8,13 @@ function AddUser() {
      setUser(event.target.value);
   }
 
-  const onSubmit = (event)=>{
+  const onSubmit = (e)=>{
+    console.log(user);
     console.log('submitted')
     const username = user;
+    axios.post('http://localhost:5000/users/add',{username: username})
+    .then((res) => console.log(res))
+    .catch(err => console.log(err));
   }
 
   return (
